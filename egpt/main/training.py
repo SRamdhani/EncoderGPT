@@ -1,20 +1,33 @@
 from dataclasses import dataclass, field
-from ..utils.util import Utility
+from datasets import Dataset
 import tensorflow as tf
 import numpy as np
 import keras_nlp
 
 @dataclass(frozen=False, unsafe_hash=True)
-class Training(Utility):
+class Training:
     num_epochs: int = field(init=True, default=int, repr=False, compare=False)
 
     def next_gpt(self, prompt, cache, index):
         logits = self.model_gpt(prompt)[:, index - 1, :]
         return logits, None, cache
 
-    def training(self, train_data: tf.Tensor, test_data: tf.Tensor,
-                 epochs: int = 1, step_check: int = 1000) -> None:
+    def training(self, epochs: int = 1, step_check: int = 1000) -> None:
 
+        training_collated = Dataset.load_from_disk('./train')
+        testing_collated = Dataset.load_from_disk('./test')
+
+        train_data = training_collated.to_tf_dataset(
+            columns=['input_ids', 'label', 'labels_gpt', 'labels_class'],
+            batch_size=self.batch_size,
+            shuffle=True)
+
+        test_data = testing_collated.to_tf_dataset(
+            columns=['input_ids', 'label', 'labels_gpt', 'labels_class'],
+            batch_size=self.batch_size,
+            shuffle=True)
+
+        # return train_data, test_data
         sampler = keras_nlp.samplers.TopPSampler(p=0.75)
         loss_gpt = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
         loss_class = tf.keras.losses.BinaryCrossentropy()

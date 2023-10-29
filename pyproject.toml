@@ -13,6 +13,7 @@ keras-nlp = "^0.6.2"
 tensorflow = "^2.14.0"
 numpy = "^1.26.1"
 tqdm = "^4.66.1"
+gast = "0.4.0"
 
 
 [build-system]

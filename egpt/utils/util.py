@@ -40,13 +40,9 @@ class Utility:
         collated_dataset = Dataset.from_dict(template)
         return collated_dataset
 
-    def loadDataFromHubOrDisk(self, dataset: str, batch_size: int) -> tuple:
+    def loadDataFromHub(self, dataset: str) -> None:
 
-        if os.path.exists('./train') and os.path.exists('./test'):
-            training_collated = Dataset.load_from_disk('./train')
-            testing_collated = Dataset.load_from_disk('./test')
-
-        else:
+        if not os.path.exists('./train') and os.path.exists('./test'):
             dataset  = load_dataset(dataset)
             training = dataset['train']
             testing  = dataset['test']
@@ -65,17 +61,3 @@ class Utility:
             testing_collated = Utility.customDataCollatorWithPadding(tokenized_testing,
                                                                      data_collator=self.data_collator)
             testing_collated.save_to_disk(dataset_path='./test')
-
-        # return training_collated, testing_collated
-
-        train_data = training_collated.to_tf_dataset(
-            columns=['input_ids', 'label', 'labels_gpt', 'labels_class'],
-            batch_size=batch_size,
-            shuffle=True)
-
-        test_data = testing_collated.to_tf_dataset(
-            columns=['input_ids', 'label', 'labels_gpt', 'labels_class'],
-            batch_size=batch_size,
-            shuffle=True)
-
-        return train_data, test_data

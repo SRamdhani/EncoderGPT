@@ -27,25 +27,14 @@ DATA_COLLATOR     = DataCollatorWithPadding(tokenizer=TOKENIZER,
 
 # # Warning: Data load may take some time the first time.
 u = Utility(seq_len=SEQ_LEN, tokenizer=TOKENIZER, data_collator=DATA_COLLATOR)
-training_data, testing_data = u.loadDataFromHubOrDisk(dataset="SetFit/amazon_polarity",
-                                                      batch_size=BATCH_SIZE)
-
-print(training_data)
-# train_data = training_data.to_tf_dataset(
-#     columns=['input_ids', 'label', 'labels_gpt', 'labels_class'],
-#     batch_size=BATCH_SIZE,
-#     shuffle=True)
+u.loadDataFromHub(dataset="SetFit/amazon_polarity")
 
 # Setting up model and training.
-# m = Model(num_epochs=EPOCHS, feed_foward_dim=FEED_FORWARD_DIM,
-#           vocab_size=VOCAB_SIZE, seq_len=SEQ_LEN, batch_size=BATCH_SIZE,
-#           embed_dim=EMBED_DIM, num_heads=NUM_HEADS, num_layers=NUM_LAYERS)
-#
-# m.training(epochs=1)
-# for x in training_data: break
-# print(x['input_ids'])
-# output_gpt = m.model_gpt(x['input_ids'])
-# input_classifier = tf.squeeze(tf.stack(outputs_class))
-# output_class = model_class(input_classifier)
+m = Model(num_epochs=EPOCHS, feed_foward_dim=FEED_FORWARD_DIM,
+          vocab_size=VOCAB_SIZE, seq_len=SEQ_LEN, batch_size=BATCH_SIZE,
+          embed_dim=EMBED_DIM, num_heads=NUM_HEADS, num_layers=NUM_LAYERS)
+
+m.training(epochs=1)
+
 
 
