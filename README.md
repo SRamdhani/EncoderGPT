@@ -18,8 +18,10 @@ poetry install
 python run.py
 ```
 
-### Additional Pending Work
+### Pending Work
 - So far the training is sequential. A parallel training paradigm is equally possible (i.e., train the GPT on descriptions and the classifier on the titles).
+- Validation for test set.
+- Add Logging.
 
 ### Output and viewing the results
 PENDING.

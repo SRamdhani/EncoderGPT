@@ -14,11 +14,11 @@ class Model(EncoderDecoder, Training):
 
    def __post_init__(self) -> None:
       model_gpt, model_class = Model.sequentialEncoderDecoder(vocab_size=self.vocab_size,
-                                                            seq_len=self.seq_len,
-                                                            embed_dim=self.embed_dim,
-                                                            num_layers=self.num_layers,
-                                                            num_heads=self.num_heads,
-                                                            feed_foward_dim=self.feed_foward_dim)
+                                                              seq_len=self.seq_len,
+                                                              embed_dim=self.embed_dim,
+                                                              num_layers=self.num_layers,
+                                                              num_heads=self.num_heads,
+                                                              feed_foward_dim=self.feed_foward_dim)
 
       object.__setattr__(self, 'model_gpt', model_gpt)
       object.__setattr__(self, 'model_class', model_class)
