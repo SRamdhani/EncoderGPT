@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "egpt"
+version = "0.1.0"
+description = ""
+authors = ["Satesh Ramdhani <satesh.ramdhani@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+transformers = "^4.34.1"
+datasets = "^2.14.6"
+keras-nlp = "^0.6.2"
+tensorflow = "^2.14.0"
+numpy = "^1.26.1"
+tqdm = "^4.66.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
