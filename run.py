@@ -27,9 +27,9 @@ DATA_COLLATOR     = DataCollatorWithPadding(tokenizer=TOKENIZER,
 u = Utility(seq_len=SEQ_LEN, tokenizer=TOKENIZER, data_collator=DATA_COLLATOR)
 training_collated, testing_collated = u.loadDataFromHubOrDisk(dataset="SetFit/amazon_polarity")
 
-# m = Model(num_epochs=EPOCHS, feed_foward_dim=FEED_FORWARD_DIM,
-#           vocab_size=VOCAB_SIZE, seq_len=SEQ_LEN, batch_size=BATCH_SIZE,
-#           embed_dim=EMBED_DIM, num_heads=NUM_HEADS, num_layers=NUM_LAYERS)
-#
-# print(m)
+m = Model(num_epochs=EPOCHS, feed_foward_dim=FEED_FORWARD_DIM,
+          vocab_size=VOCAB_SIZE, seq_len=SEQ_LEN, batch_size=BATCH_SIZE,
+          embed_dim=EMBED_DIM, num_heads=NUM_HEADS, num_layers=NUM_LAYERS)
+
+print(m.model_class.summary())
 
