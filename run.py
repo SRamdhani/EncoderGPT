@@ -2,8 +2,10 @@ from transformers import DataCollatorWithPadding
 from transformers import AutoTokenizer
 from egpt.utils.util import Utility
 from egpt.main.model import Model
-
 import tensorflow as tf
+
+# TODO: Need to add logging.
+# TODO: Need to add validation for testing data
 
 # Work around because the Macbook M2 GPU has issue with keras-nlp sampler.
 tf.config.set_visible_devices([], 'GPU')
@@ -25,11 +27,11 @@ DATA_COLLATOR     = DataCollatorWithPadding(tokenizer=TOKENIZER,
 
 # Warning: Data load may take some time the first time.
 u = Utility(seq_len=SEQ_LEN, tokenizer=TOKENIZER, data_collator=DATA_COLLATOR)
-training_collated, testing_collated = u.loadDataFromHubOrDisk(dataset="SetFit/amazon_polarity")
+training_data, testing_data = u.loadDataFromHubOrDisk(dataset="SetFit/amazon_polarity")
 
+# Setting up model and training.
 m = Model(num_epochs=EPOCHS, feed_foward_dim=FEED_FORWARD_DIM,
           vocab_size=VOCAB_SIZE, seq_len=SEQ_LEN, batch_size=BATCH_SIZE,
           embed_dim=EMBED_DIM, num_heads=NUM_HEADS, num_layers=NUM_LAYERS)
 
-print(m.model_class.summary())
-
+# m.training(train_data=training_data, test_data=testing_data, epochs=1)

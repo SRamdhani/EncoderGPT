@@ -13,7 +13,7 @@ class Model(EncoderDecoder, Training):
    num_layers: int = field(init=True, default=int, repr=False, compare=False)
 
    def __post_init__(self) -> None:
-      model_gpt, model_class = Model.indepEncoderDecoderSeq(vocab_size=self.vocab_size,
+      model_gpt, model_class = Model.sequentialEncoderDecoder(vocab_size=self.vocab_size,
                                                             seq_len=self.seq_len,
                                                             embed_dim=self.embed_dim,
                                                             num_layers=self.num_layers,

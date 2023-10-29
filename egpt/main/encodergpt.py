@@ -6,8 +6,9 @@ import keras_nlp
 
 @dataclass(frozen=False, unsafe_hash=True)
 class EncoderDecoder:
+
     @staticmethod
-    def indepEncoderDecoderSeq(vocab_size: int, seq_len: int, embed_dim: int,
+    def sequentialEncoderDecoder(vocab_size: int, seq_len: int, embed_dim: int,
                                num_layers: int, num_heads: int, feed_foward_dim: int) -> tuple:
         # Setting up GPT Model.
         inputs_gpt = keras.layers.Input(shape=(None,), dtype=tf.int32)
